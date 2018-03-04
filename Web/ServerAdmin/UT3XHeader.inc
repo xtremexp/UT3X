@@ -10,7 +10,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="generator" content="UT3 WebAdmin v<%build.version%> - <%build.timestamp%>" />
 	<script type="text/javascript" src="/images/jquery-3.3.1.min.js"></script>
-	<script type="text/javascript" src="/images/jquery-ui-1.8.21.custom.min.js"></script>
+	<script type="text/javascript" src="/images/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="/images/farbtastic.js"></script>
 	<script type="text/javascript" src="/images/UT3X.js"></script>
 	<script type="text/javascript" src="/images/tooltip.js"></script>
