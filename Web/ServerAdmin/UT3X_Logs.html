@@ -1,0 +1,205 @@
+<!-- #include file="UT3XHeader.inc" -->
+
+
+<div id="content">
+
+<fieldset id="UT3XSettings">
+<legend>Server Logs</legend>
+<FONT COLOR="#FF0000">Using this search page can make some little lag on gameserver. Use it wisely!</font>
+<form id="GlobalLogs" method="post" action="<%page.fulluri%>" >
+<div style="font-size:small;">
+	<table class="grid">
+	<tr>
+	<td>
+	<fieldset id="UT3XSettings">
+		<legend>Logs Filter</legend>
+			<table class="grid">
+				<tr>
+					<td>Log Type</td>
+					<td>
+						<select name="logTypeFilter" id="logTypeFilter">
+							<option value="" selected>ALL</option>
+							<option value="LT_PMCHAT">Private Message</option
+							<option value="LT_CHATLOG">Chat Logs</option>
+							<option value="LT_ADMINLOGIN">Admin Login/Logout</option>
+							<option value="LT_WARN">Warned Players</option>
+							<option value="LT_DEMOREC">Demo Rec</option>
+							<option value="LT_KICK">Kicked Players</option>
+							<option value="LT_KICKVOTE">Kick-voted Players</option>
+							<option value="LT_KICKBAN">Banned Players</option>
+							<option value="LT_MUTE">Muted Players</option>
+							<option value="LT_MUTEBAN">Ban-muted Players</option>
+							<option value="LT_REQUEST">Admin requested</option>
+							<option value="LT_REPORT">Player Reported</option>
+							<option value="LT_LAGDETECTOR">Lag Detected</option>
+							<option value="LT_ACCESS">Player Access</option>
+							<option value="LT_MAPCHANGE">Map Change</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Player Name</td>
+					<td><input type="text" name="srcPNFilter" value="<%srcPNFilter%>"/></td>
+				</tr>
+				<!--
+				<tr>
+					<td>Dest. Player</td>
+					<td><input type="text" name="destPNFilter" value="<%destPNFilter%>"/></td>
+				</tr>
+				-->
+				<tr>
+					<td>Chat Text - Ban/kick reason - Map</td>
+					<td><input type="text" name="dataFilter" value="<%dataFilter%>"/></td>
+				</tr>
+				<tr>
+					<td>Min DateTime</td>
+					<td>
+						<div>
+						<input type="text" id="minDateTimeTSFilter" name="minDateTimeTSFilter" value="<%minDateTimeTSFilter%>"/>
+						</div>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>Max DateTime</td>
+					<td>
+						<div>
+						<input type="text" id="maxDateTimeTSFilter" name="maxDateTimeTSFilter" value="<%maxDateTimeTSFilter%>"/>
+						</div>
+					</td>
+				</tr>
+	
+				<tr>
+					<td>Max Results (max=<%maxLogLines%>)</td>
+					<td><input type="text" style="text-align: right;" value="<%maxLogLines%>" size="4"  name="maxResultsFilter"/></td>
+				</tr>
+			</table>
+		
+		<button type="submit" name="action" value="UT3XTest" id="btnMainSave" onclick="document.getElementById('numPageDisplayed').value = "1";return true;">FIND</button>
+	</fieldset>
+	</td>
+	<td>
+		<fieldset>
+		<legend>Logs Settings</legend>
+		<table class="grid">
+			<tr>
+				<td>MaxDaysLogRetentionTime</td>
+				<td><input type="text" style="text-align: right;" name="maxDaysLogRetentionTime" value="<%maxDaysLogRetentionTime%>"/></td>
+			</tr>
+			<tr>
+				<td>MaxLogLines</td>
+				<td><input type="text" style="text-align: right;" name="maxLogLines" value="<%maxLogLines%>"/></td>
+			</tr>
+			</table>
+			<b>Kicks and bans and mutes are always kept.</b><br>
+			<button type="submit" title="HeadAdmins-ONLY action" style="background-color:red" name="action" value="save" onclick="return confirm('Are-you sure you want to apply these settings?');">Save</button>
+		</fieldset>
+	</td>
+	</tr>
+	</table>
+	<table>
+		<tr>
+			<td>Page:</td>
+			<td><input type="button" onclick="changePage(false);" value="-"/></td>
+			<td>
+				<input type="hidden" id="totalNumPages" value="<%totalNumPages%>"/>
+				<input type="text" style="text-align: right;" value="<%numPageDisplayed%>" id="numPageDisplayed" name="numPageDisplayed" size="2" onchange="changePageOnChange(this);"/>/<%totalNumPages%>
+			</td>
+			<td><input type="button" onclick="changePage(true);" value="+"/></td>
+			<td>Total Results:<%numResults%></td>
+			<td>Results per page:<%linesPerPage%></td>
+		<tr>
+	</table>
+	<br>
+	<table id="players" class="grid">
+	<thead>
+	<tr>
+		<!--<th><input type="checkbox" onclick="toggleCheckAll(this.checked);"></th>-->
+		<th>#</th>
+		<th>Date Time</th>
+		<th>Log Type</th>
+		<th>Src Player</th>
+		<th>Dest. Player</th>
+		<th>Data</th>
+	</tr>
+	</thead>
+	<tbody>
+		<%ut3x.logs.list%>
+	</tbody>
+	</table>
+</div>
+
+<script>
+	defaultOnLoad2();
+	$('#minDateTimeTSFilter').datetimepicker({
+		separator: ' - ',
+		showSecond: true,
+		timeFormat: 'hh:mm:ss',
+		dateFormat: 'yy/mm/dd'
+	});
+
+	$('#maxDateTimeTSFilter').datetimepicker({
+		separator: ' - ',
+		showSecond: true,
+		timeFormat: 'hh:mm:ss',
+		dateFormat: 'yy/mm/dd'
+	});
+
+	function defaultOnLoad2(){
+		$("#players").tablesorter(); 
+		setSelectedValue('logTypeFilter', '<%logTypeFilter%>');
+	}
+	
+	
+	
+	function changePageOnChange(pageEl){
+		var numPageDisplayed = new Number(document.getElementById('numPageDisplayed').value);
+		var totalNumPages = new Number(document.getElementById('totalNumPages').value);
+		var newNumPageDisplayed = pageEl.value;
+		
+		if(isNaN(newNumPageDisplayed)){
+			pageEl.value = pageEl.defaultValue;
+			return;
+		}
+		
+		if(numPageDisplayed < 1){
+			pageEl.value = 1;
+		}
+		
+		if(numPageDisplayed > totalNumPages){
+			pageEl.value = totalNumPages;
+		}
+		
+		document.getElementById('GlobalLogs').submit();
+	}
+	
+	function changePage(isPlus){
+		var numPageDisplayed = new Number(document.getElementById('numPageDisplayed').value);
+		var totalNumPages = new Number(document.getElementById('totalNumPages').value);
+		
+		isPlus?(numPageDisplayed ++):(numPageDisplayed--);
+		if(numPageDisplayed < 1){
+			numPageDisplayed = 1;
+			return;
+		}
+		
+		if(numPageDisplayed > totalNumPages){
+			numPageDisplayed = totalNumPages;
+			return;
+		}
+		document.getElementById('numPageDisplayed').value = numPageDisplayed;
+		$(GlobalLogs).submit();
+	}
+</script>
+</form>
+</fieldset>
+
+
+</div>
+
+
+
+
+
+<!-- #include file="navigation.inc" -->
+<!-- #include file="footer.inc" -->

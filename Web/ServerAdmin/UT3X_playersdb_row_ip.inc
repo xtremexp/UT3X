@@ -1,0 +1,1 @@
+<a href="<%page.fulluri%>?ipFilter=<%ut3xplayer.ip%>&isNotInit=1" title="First time used:<%ut3xplayer.fts%><br>Last time used:<%ut3xplayer.lts%>" onmouseover="tooltip.show(this)" onmouseout="tooltip.hide(this)" ><%ut3xplayer.ip%></a><br>

@@ -1,0 +1,144 @@
+<!-- #include file="UT3XHeader.inc" -->
+
+
+ <style type="text/css" media="screen">
+   .colorwell {
+     border: 2px solid #fff;
+     width: 6em;
+     text-align: center;
+     cursor: pointer;
+   }
+   body .colorwell-selected {
+     border: 2px solid #000;
+     font-weight: bold;
+   }
+ </style>
+ 
+
+
+<div id="content">
+
+<fieldset id="UT3XSettings">
+<legend>Adverts</legend>
+
+<div>
+	<div id="picker" style="float: right;"></div>
+<div id="demo" style="color: red; font-size: 1.4em">jQuery.js is not present. You must install jQuery in this folder for the demo to work.</div>
+	Global settings
+	<form id="UT3XAdvertsSettings" method="post" action="<%page.fulluri%>">
+	<table class="grid">
+		<tr>
+			<td>Display Delay (s)</td>
+			<td><input type="text" name="displayDelay" value="<%ut3x.adverts.displayDelay%>"/></td>
+		</tr>
+		<tr>
+			<td>Basic Display Mode? (lag-less)</td>
+			<td><input type="checkbox" name="bBasicDisplay" <%ut3x.adverts.bBasicDisplay%>/></td>
+		</tr>
+		
+		
+		<tr>
+			<td colspan='2'><button type="submit" name="action" value="saveGlobal" onclick="return confirm('Are-you sure you want to apply these settings?');">Save</button></td>
+		</tr>
+	</table>
+	
+	</form>
+
+	<table class="grid" style="font-size:small;">
+	<thead>
+	<tr>
+		<th>Message</th>
+		<th>Color</th>
+		<th>Y Position (%)</th>
+		<th>Duration (s)</th>
+		<th>Font Size</th>
+		<th>&nbsp;</th>
+		<th>&nbsp;</th>
+		<th>&nbsp;</th>
+	</tr>
+	</thead>
+	<tbody>
+		<%ut3x.adverts.list%>
+		<tr>
+			<form  method="post" action="<%page.fulluri%>">
+			<td><input type="text" style="width: 500px;" name="newMessage" required/></td>
+			<td>
+				<input type="text" id="DrawColor" name="DrawColor" class="colorwell" value="#FFFFFF" />
+			</td>
+			<td>
+				<select name="Position">
+					<option value="0">0%-Top</option>
+					<option value="0.1">10%</option>
+					<option value="0.2">20%</option>
+					<option value="0.3">30%</option>
+					<option value="0.4">40%</option>
+					<option value="0.5">50%-Middle</option>
+					<option value="0.6">60%</option>
+					<option value="0.7">70%</option>
+					<option value="0.8">80%</option>
+					<option value="0.85" selected>85%</option>
+					<option value="0.9">90%</option>
+					<option value="1">100%-Bottom</option>
+				</select>
+			</td>
+			<td>
+				<input type="text" name="LifeTime" value="6.0000"/>
+			</td>
+			<td>
+				<select name="FontSize">
+					<option value="0">Tiny</option>
+					<option value="1">Small</option>
+					<option value="2">Medium</option>
+					<option value="3">Large</option>
+				</select>
+			</td>
+			<td>&nbsp;</td>
+			<td>
+				
+				<input type="submit" name="action" value="ADD"/>
+			</td>
+			</form>
+		</tr>
+	</tbody>
+	</table>
+</div>
+</fieldset>
+
+
+</div>
+
+<script>
+	$(document).ready(function() {
+	
+	var lignes = document.getElementsByName('ligne');
+	for(var i=0; i<lignes.length; i++){
+		var id = lignes[i].id;
+		var val = document.getElementById('FontSizeHidden-'+id).value;
+		setSelectedValue('FontSize-'+id, val);
+		
+		var val = document.getElementById('PositionHidden-'+id).value;
+		setSelectedValue('Position-'+id, val);
+	}
+	
+    $('#demo').hide();
+    var f = $.farbtastic('#picker');
+    var p = $('#picker').css('opacity', 0.25);
+    var selected;
+    $('.colorwell')
+      .each(function () { f.linkTo(this); $(this).css('opacity', 0.75); })
+      .focus(function() {
+        if (selected) {
+          $(selected).css('opacity', 0.75).removeClass('colorwell-selected');
+        }
+        f.linkTo(this);
+        p.css('opacity', 1);
+        $(selected = this).css('opacity', 1).addClass('colorwell-selected');
+      });
+  });
+
+</script>
+
+
+
+<!-- #include file="navigation.inc" -->
+<!-- #include file="footer.inc" -->

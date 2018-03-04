@@ -1,0 +1,68 @@
+<!-- #include file="UT3XHeader.inc" -->
+
+<div id="content">
+<form  method="post" action="<%page.fulluri%>">
+<fieldset id="UT3XSettings">
+<legend>SQL Link</legend>
+
+<div>
+	Allows to export/import data to postgreSQL server.<br>
+	UT3[TCPLink] -- (HTTPRequest POST) ---> Apache Server (PHP) --> PostgreSQL<br>
+	<span style="background-color: red">Only enable this module if your UT3 server is windows only!!</span>
+	<br><br>
+	<table class="grid">
+	<tbody>
+		<tr>
+			<th>Enabled?:</th>
+			<td><input type="checkbox" name="sqlLink_enabled" <%sqlLink_enabled%>></td>
+		</tr>
+		<tr>
+			<th title="e.g: 15.4.2.1 or www.mysite.fr">HTTP Server Host:</th>
+			<td title="e.g: 15.4.2.1 or www.mysite.fr"><input type="text" name="sqlLink_host" value="<%sqlLink_host%>" required></td>
+		</tr>
+		<tr>
+			<th title="normally 80 by default">HTTP Server Port:</th>
+			<td title="normally 80 by default"><input type="text" name="sqlLink_port" value="<%sqlLink_port%>" size="2" required></td>
+		</tr>
+		<tr>
+			<th title="e.g: /scripts/script.php">PHP file path:</th>
+			<td title="e.g: /scripts/script.php"><input type="text" name="sqlLink_phpfilepath" value="<%sqlLink_phpfilepath%>" size="60" required></td>
+		</tr>
+		<tr>
+			<th title="Security password in order remote php script to process request.">PHP script password:</th>
+			<td title="Security password in order remote php script to process request."><input type="password" name="sqlLink_password" value="<%sqlLink_password%>" ></td>
+		</tr>
+		<tr>
+			<td colspan="2">&nbsp;</td>
+		</tr>
+		
+		<tr>
+			<th>Export player data to SQL?:</th>
+			<td><input type="checkbox" name="sqlLink_exportPlayerData" <%sqlLink_exportPlayerData%>></td>
+		</tr>
+		
+		<tr>
+			<th>Export logs to SQL?:</th>
+			<td><input type="checkbox" name="sqlLink_exportLogs" <%sqlLink_exportLogs%>></td>
+		</tr>
+		
+		<tr>
+			<th>Get player city when connecting?:</th>
+			<td><input type="checkbox" name="sqlLink_ip2c_enabled" <%sqlLink_ip2c_enabled%>></td>
+		</tr>
+	</tbody>
+
+	</table>
+	<button value="save" name="action" type="submit">Save</button>
+</div>
+</fieldset>
+
+
+</div>
+</form>
+
+
+
+
+<!-- #include file="navigation.inc" -->
+<!-- #include file="footer.inc" -->

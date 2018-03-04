@@ -1,0 +1,109 @@
+<!-- #include file="UT3XHeader.inc" -->
+
+<div id="content">
+
+<fieldset id="UT3XSettings">
+<legend>UT3X Balancer</legend>
+
+<div>
+	<form  method="post" action="<%page.fulluri%>">
+	
+	<fieldset id="UT3XSettings">
+	<legend>Global Settings</legend>
+	<table>
+		<tr>
+			<td><input type="checkbox" name="allowSwitchToWinningTeam" <%balancer.allowSwitchToWinningTeam%> /></td>
+			<td>Allow switching to winning team </td>
+			<td>if score difference is =>: </td>
+			<td><input type="number" name="maxScoreDiffToSwitchToWinningTeam" value="<%balancer.maxScoreDiffToSwitchToWinningTeam%>" size="1"></td>
+		</tr>
+		<tr><td><button type="submit" name="action" value="save_global">Save</button></td></tr>
+	</table>
+	</fieldset>
+	
+	
+	<table class="grid">
+	ScoreDiff = Abs(BlueTeam Score-RedTeam Score)<br>
+	Player boost is triggered every minute<br><br>
+	<thead>
+	<tr>
+		<th>Score Diff</th>
+		<th>Players Count</th>
+		<th>Num Players Boosted</th>
+		<th>Balance Action</th>
+		<th>&nbsp;</th>
+	</tr>
+	</thead>
+	<tbody>
+		<%balancer.scorediffactions%>
+		<tr>
+			<td>
+				<table class="grid">
+				<tr><td>Min:</td><td><input type="text" style="text-align: right;" name="minScoreDiff" value="1" size="3"/></td></tr>
+				<tr><td>Max:</td><td><input type="text" style="text-align: right;" name="maxScoreDiff" value="2" size="3" /></td></tr>
+				</table>
+			</td>
+			<td>
+				Min:<input type="text" style="text-align: right;" name="minTotalPlayers" value="2" size="3"/><br>
+				Max:<input type="text" style="text-align: right;" name="maxTotalPlayers" value="64" size="3"/>
+			</td>
+			<td><input type="text" style="text-align: right;" name="numPlayersBoosted" value="1" size="3"/></td>
+			<td>
+				<select multiple="true" name="BalanceActionn">
+					<option value="BA_GIVE_FULLHP">Give 199HP</option>
+					<option value="BA_GIVE_FULLHPANDARMOR">Give 199HP and Armor</option>
+					<option value="BA_GIVE_BOOTS">Give Boots</option>
+					<option value="BA_GIVE_BERSERK">Give Berserk(30s)</option>
+					<option value="BA_GIVE_UDAMAGE">Give UDamage(30s)</option>
+					<option value="BA_GIVE_VH_RAPTOR">Give Raptor</option>
+					<option value="BA_GIVE_VH_VIPER">Give Viper</option>
+					<option value="BA_GIVE_INVISIBILITY">Give Invisibility(30s)</option>
+					<option value="BA_GIVE_WP_DEEMER">Give Deemer</option>
+					<option value="BA_GIVE_VH_TANK">Give Tank</option>
+					<option value="BA_GIVE_VH_LEVIATHAN">Give Leviathan</option>
+					<option value="BA_GIVE_INVULNERABILITY">Give Invulnerability(30s)</option>
+					<option value="BA_GIVE_WP_INSTAGIB">Give InstaGib</option>
+					<option value="BA_MAKETITAN">Make Titan</option>
+					<option value="BA_MAKESUPERTITAN">Make Super-Titan</option>
+				</select>
+			</td>
+			<td>
+				<input type="submit" name="action" value="ADD"/>
+			</td>
+			
+		</tr>
+	</tbody>
+	</table>
+	</form>
+</div>
+</fieldset>
+
+</div>
+
+<script>
+	$(document).ready(function() {
+	
+	var lignes = document.getElementsByName('ligne');
+	
+	
+	for(var i=0; i<lignes.length; i++){
+		var id = lignes[i].id;
+		var balanceActionValues = document.getElementById('BalanceActions-'+id).value;
+		var a = new Array();
+		var s = balanceActionValues.split(',');
+		var select = document.getElementById('BalanceAction-'+id);
+		for(var j=0; j<s.length; j++){
+			if(!isNaN(s[j]) && s[j] != ""){
+				select.options[new Number(s[j])].selected = true;
+			}
+		}
+	}
+  });
+
+</script>
+
+
+
+
+<!-- #include file="navigation.inc" -->
+<!-- #include file="footer.inc" -->

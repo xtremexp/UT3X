@@ -1,0 +1,326 @@
+<!-- #include file="UT3XHeader.inc" -->
+
+<div id="content">
+<fieldset id="UT3XSettings">
+<legend>UT3X HeadAdmin</legend>
+	<div id="tabs">
+	<ul>
+		<li><a href="#tabs-kickactions">Default Kick Actions</a></li>
+		<li><a href="#tabs-sockets">Player Connections</a></li>
+		<li><a href="#tabs-tcplinks">TCP Links</a></li>
+		<li><a href="#tabs-findobject">Find Object</a></li>
+		<li><a href="#tabs-mapvotelist">MapList Manager</a></li>
+	</ul>
+	<div id='tabs-kickactions'>
+		This page allows you to define default kick rules when some player is breaking server rules.<br>
+		
+		
+		<i>If server break rules SWEARING, AFKING and SPEEDHACKING are set, it will bypass the default action set for:<br>
+		AFK Checker (default = KICK or FORCESPEC), Language Checker(default = KICK) and SpeedHack detector(default = KICK)<br></i>
+		<br>
+		If "No Log?" is true then kick action repeat will not be available<br><br>
+		<table style="font-size:small;">
+			<thead>
+				<tr>
+					<th>Rule Break</th>
+					<th>Kick Action</th>
+					<th>Ban Duration </th>
+					<th>No Log?</th>
+					
+					<th>Max Interval Time for repeat</th>
+					
+					<th>Kick Action (repeat)</th>
+					<th>Ban Duration (repeat)</th>
+					<th>No Log?</th>
+					
+					<th>&nbsp;</td>
+				</tr>
+			</thead>
+			<tbody>
+				<%ut3x.kickrules.list%>
+			</tbody>
+			<tfoot>
+				<form method="post" action="<%page.fulluri%>">
+				<td><input type="text" name="label" required/></td>
+				<td>
+					<select name="kickaction" onchange="toggleBanDuration(this.value, false);">
+						<option value="KA_NONE">Disabled</option>
+						<option value="KA_WARNING" selected>Warning</option>
+						<option value="KA_KICK">Kick</option>
+						<option value="KA_KICKBAN">Ban</option>
+						<option value="KA_KICKPERMBAN">Permanent Ban</option>
+						<option value="KA_MUTE">Mute</option>
+						<option value="KA_BANMUTE">Ban Mute</option>
+					</select>
+				</td>
+				<td>
+					<select type="text" style="text-align: right;" name="banduration" id="banduration" value="0" disabled="disabled">
+						<option value="5m">5 Minutes</value>
+						<option value="15m">15 Minutes</value>
+						<option value="30m">30 Minutes</value>
+						<option value="1h">1 Hour</value>
+						<option value="2h">2 Hours</value>
+						<option value="6h">6 Hours</value>
+						<option value="12h">12 Hours</value>
+						<option value="1d" selected>1 Day<value>
+						<option value="2d">2 Days<value>
+						<option value="3d">3 Days<value>
+						<option value="4d">4 Days<value>
+						<option value="1w">1 Week<value>
+						<option value="2w">2 Weeks<value>
+						<option value="3w">3 Weeks<value>
+						<option value="30d">1 Month<value>
+						<option value="45d">1 Month and half<value>
+						<option value="60d">2 Months<value>
+						<option value="90d">3 Months<value>
+					</select>
+				</td>
+				
+				<td>
+					<input type="checkbox" name="bNoLog"/>
+				</td>
+				
+				<td>
+					<select name="maxtimeforrepeat">
+						<option value="" selected>Disabled</value>
+						<option value="5m">5 Minutes</value>
+						<option value="15m">15 Minutes</value>
+						<option value="30m">30 Minutes</value>
+						<option value="1h">1 Hour</value>
+						<option value="2h">2 Hours</value>
+						<option value="6h">6 Hours</value>
+						<option value="12h">12 Hours</value>
+						<option value="1d">1 Day<value>
+						<option value="2d">2 Days<value>
+						<option value="3d">3 Days<value>
+						<option value="4d">4 Days<value>
+						<option value="1w">1 Week<value>
+						<option value="2w">2 Weeks<value>
+						<option value="3w">3 Weeks<value>
+						<option value="30d">1 Month<value>
+						<option value="45d">1 Month and half<value>
+						<option value="60d">2 Months<value>
+						<option value="90d">3 Months<value>
+					</select>
+				</td>
+				
+				<td>
+					<select name="kickactionrepeat" onchange="toggleBanDuration(this.value, true);">
+						<option value="KA_NONE" selected>Disabled</option>
+						<option value="KA_KICK">Kick</option>
+						<option value="KA_KICKBAN">Ban</option>
+						<option value="KA_KICKPERMBAN">Permanent Ban</option>
+						<option value="KA_MUTE">Mute</option>
+						<option value="KA_BANMUTE">Ban Mute</option>
+					</select>
+				</td>
+				<td>
+					<select type="text" style="text-align: right;" name="bandurationrepeat" id="bandurationrepeat" value="0" disabled="disabled">
+						<option value="1">1 Minute</value>
+						<option value="30m">30 Minutes</value>
+						<option value="1h">1 Hour</value>
+						<option value="2h">2 Hours</value>
+						<option value="6h">6 Hours</value>
+						<option value="12h">12 Hours</value>
+						<option value="1d" selected>1 Day<value>
+						<option value="2d">2 Days<value>
+						<option value="3d">3 Days<value>
+						<option value="4d">4 Days<value>
+						<option value="1w">1 Week<value>
+						<option value="2w">2 Weeks<value>
+						<option value="3w">3 Weeks<value>
+						<option value="30d">1 Month<value>
+						<option value="45d">1 Month and half<value>
+						<option value="60d">2 Months<value>
+						<option value="90d">3 Months<value>
+					</select>
+				</td>
+				
+				<td>
+					<input type="checkbox" name="bNoLogRepeat"/>
+				</td>
+				<td>
+					<button type="submit" name="action" value="add">ADD</button>
+				</td>
+				</form>
+			</tfoot>
+		</table>
+	</div>
+	<div id='tabs-sockets' style="font-size:small;">
+		This page is only used as a test <br>
+		Sockets:
+		<table>
+			<thead>
+				<tr>
+					<th>IP</th>
+					<th>Port</th>
+					<th>PlayerName</th>
+					<th>ConnectionState</th>
+					<th>DLFile</th>
+					<th>Text Channels</th>
+					<th>Actor Channels</th>
+					<th>File Channels</th>
+					<th>Other Channels</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%sockets.list%>
+			</tbody>
+		</table>
+	</div>
+	<div id='tabs-tcplinks' style="font-size:small;">
+		This page is only used as a test <br>
+		<br>
+		TCP Links:
+		<table>
+			<thead>
+				<tr>
+					<th>IP/Port</th>
+					<th>Link State</th>
+					<th>Link Mode</th>
+					<th>InLine Mode</th>
+					<th>OutLine Mode</th>
+					<th>Receive Mode</th>
+					<th>AcceptClass</th>
+					<th>SendFIFO</th>
+					<th>RecvBuf</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%tcplinks.list%>
+			</tbody>
+		</table>
+	</div>
+	<div id='tabs-findobject' style="font-size:small;">
+		This page is only used as a test <br><br>
+		Find object<br>
+		E.G:<br>
+		Transient.TcpipConnection_0, IpDrv.TcpipConnection<br>
+		Transient.TcpNetDriver_0, IpDrv.TcpNetDriver<br>
+		<form method="post" action="<%page.fulluri%>">
+		
+			Object Name:<input type="text" name="objectname" size="50" value="<%objectname%>" required/>
+			Object Class:<input type="text" name="objectclass"  size="50" value="<%objectclass%>" required/>
+			<button type="submit" name="action" value="findobject">Search</button>
+			<button type="submit" name="action" value="createobject">Create</button>
+		</form>
+	</div>
+	<div id='tabs-mapvotelist' style="font-size:small;">
+		<form method="post" action="<%page.fulluri%>">
+		This part allow you to set mapvote list depending on how many players there are on server.
+		<table>
+			<tbody>
+				<tr>
+					<td>Default map when server empty:</td>
+					<td title="Will automatically switch to this map if server is empty.">
+						<input type="text" name="defaultmap" value="<%defaultmap%>" required>
+					</td>
+				</tr>
+				<tr>
+					<td>No autoswitch if server passworded:</td>
+					<td><input type="checkbox" name="noSwitchIfServerPassworded" <%noSwitchIfServerPassworded%>/></td>
+				</tr>
+				
+				<tr>
+					<td>
+						Auto switch to default map if no players during:
+					</td>
+					<td>
+						<select style="text-align: right;" name="secondsBeforeSwitch" id="secondsBeforeSwitch">
+							<option value="30">30 Seconds</value>
+							<option value="60">1 Minute</value>
+							<option value="90">1.5 Minute</value>
+							<option value="120">2 Minutes</value>
+							<option value="180">3 Minutes</value>
+							<option value="300">5 Minutes (default)</value>
+							<option value="600">10 Minutes</value>
+							<option value="900">15 Minutes</value>
+							<option value="1200">20 Minutes</value>
+							<option value="1800">30 Minutes</value>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2"><hr></td>
+				</tr>
+				<tr>
+					<td>CurrentMapList Map List:</td>
+					<td><%ActiveMapList%></td>
+				</tr>
+				<tr>
+					<td>MapList between 0 and 12 players:</td>
+					<td>
+						<select name="mapListName_0_12" id="mapListName_0_12">
+							<option value=""></option>
+						<%ut3x.mapLists%>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>MapList between 13 and 20 players:</td>
+					<td>
+						<select name="mapListName_13_20" id="mapListName_13_20">
+							<option value=""></option>
+						<%ut3x.mapLists%>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>MapList between 21 and 64 players:</td>
+					<td>
+						<select name="mapListName_21_64" id="mapListName_21_64">
+							<option value=""></option>
+						<%ut3x.mapLists%>
+						</select>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+			<button type="submit" name="action" value="saveMapListConfig">Save</button>
+		</form>
+	</div>
+	</div>
+	
+</fieldset>
+</div>
+<script>
+	$(function() {
+		$( "#tabs" ).tabs();
+	});
+	
+	function toggleBanDuration(kickAction, isRepeat){
+		if(kickAction == "KA_KICK" || kickAction == "KA_MUTE" || kickAction == "KA_NONE" || kickAction == "KA_WARNING" || kickAction == "KA_KICKPERMBAN"){
+			if(!isRepeat){
+				document.getElementById('banduration').disabled = true;
+				document.getElementById('banduration').value = 0;
+			} else {
+				document.getElementById('bandurationrepeat').disabled = true;
+				document.getElementById('bandurationrepeat').value = 0;
+			}
+		} else {
+			if(!isRepeat){
+				document.getElementById('banduration').disabled = false;
+				document.getElementById('banduration').value = 1;
+			} else {
+				document.getElementById('bandurationrepeat').disabled = false;
+				document.getElementById('bandurationrepeat').value = 1;
+			}
+		}
+	}
+	
+	defaultOnLoad2();
+
+	function defaultOnLoad2(){
+		setSelectedValue('secondsBeforeSwitch', '<%secondsBeforeSwitch%>');
+		
+		setSelectedValue('mapListName_0_12', '<%mapListName_0_12%>');
+		setSelectedValue('mapListName_13_20', '<%mapListName_13_20%>');
+		setSelectedValue('mapListName_21_64', '<%mapListName_21_64%>');
+		
+	}
+	</script>
+
+
+<!-- #include file="navigation.inc" -->
+<!-- #include file="footer.inc" -->

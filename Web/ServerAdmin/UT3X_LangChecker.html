@@ -1,0 +1,50 @@
+<!-- #include file="UT3XHeader.inc" -->
+
+<div id="content">
+
+<fieldset id="UT3XSettings">
+<legend>Language Checker</legend>
+
+<div>
+	<table class="grid">
+		<tr><td>Min Player Swearing Points for Warning:</td><td><%minWeightToWarn%></td></tr>
+		<tr><td>Min Player Swearing Points for Kick:</td><td><%minWeightToKick%></td></tr>
+	</table>
+	Any bad word with Weight>MinSwearingPoints for kick will result in direct kick for player.<br>
+	Bad words are counted several times if in same sentence.<br>
+	<b>Bad words must NOT have spaces(e.g: "mother fucker")</b><br>
+	E.g: "You little dick.You really a dick." the bad word "dick" will be counted twice.
+	<table class="grid">
+	<thead>
+	<tr>
+		<th>Bad Word</th>
+		<th>Weight</th>
+		<th>Language (unused yet)</th>
+		<th>&nbsp;</th>
+	</tr>
+	</thead>
+	<tbody>
+		<%badwords.list%>
+		<tr>
+			<form  method="post" action="<%page.fulluri%>">
+			<td><input type="text" name="word" required/></td>
+			<td><input type="text" name="weight" size="10" required/></td>
+			<td>&nbsp;</td>
+			<td>
+				<input type="submit" name="action" value="ADD"/>
+			</td>
+			</form>
+		</tr>
+	</tbody>
+	</table>
+</div>
+</fieldset>
+
+
+</div>
+
+
+
+
+<!-- #include file="navigation.inc" -->
+<!-- #include file="footer.inc" -->

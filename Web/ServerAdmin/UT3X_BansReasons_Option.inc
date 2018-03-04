@@ -1,0 +1,1 @@
+<option value="<%ut3x.bantype.label%>"><%ut3x.bantype.label%><%ut3x.bantype.extrainfo%></option>

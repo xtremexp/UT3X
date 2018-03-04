@@ -1,0 +1,69 @@
+<!-- #include file="UT3XHeader.inc" -->
+
+<div id="content">
+
+<fieldset id="UT3XSettings">
+<legend>AFK Detector Settings</legend>
+
+<div>
+	<form id="UT3XAFKSettings" method="post" action="<%page.fulluri%>">
+	<table class="grid">
+		<thead>
+			<tr>
+				<th>&nbsp;</th>
+				<th>Current Value</th>
+				<th>Default Value</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr style="display: none">
+				<td>AFK Prefix</td>
+				<td><input type="text" name="AFKMsgPrefix" value="<%ut3x.afk.msgprefix%>"/></td>
+				<td>[UT3X-AFKChecker]</td>
+			</tr>
+			<tr>
+				<td>Do not kick afk if on winning team</td>
+				<td><input type="checkbox" name="noAFKKickIfOnWinningTeam" <%ut3x.afk.noAFKKickIfOnWinningTeam%> /></td>
+				<td align="right">false</td>
+			</tr>
+			
+			<tr>
+				<td>Check Idlers if at least</td>
+				<td><input style="text-align:right" align="right" name="AFKMinPlayers" type="text" value="<%ut3x.afk.minplayers%>"/> players</td>
+				<td align="right">10</td>
+			</tr>
+			<tr>
+				<td>Warn AFK after</td>
+				<td><input style="text-align:right" type="text" name="AFKWarningSeconds" value="<%ut3x.afk.warningseconds%>"/>s</td>
+				<td align="right">60s</td>
+			</tr>
+			<tr>
+				<td>Force Spec AFK players after</td>
+				<td><input style="text-align:right" align="right" name="AFKForceSpecSeconds" type="text" value="<%ut3x.afk.forcespecseconds%>"/>s</td>
+				<td align="right">240s</td>
+			</tr>
+			<tr>
+				<td>Kick AFK Spectators after</td>
+				<td><input style="text-align:right" align="right" name="AFKKickSeconds" type="text" value="<%ut3x.afk.kickseconds%>"/>s</td>
+				<td align="right">240s</td>
+			</tr>
+			<tr>
+				<td>Min Free Spec Slots AFKCheck</td>
+				<td><input style="text-align:right" align="right" name="minFreeSpecSlotAFKCheck" type="text" value="<%ut3x.afk.minFreeSpecSlotAFKCheck%>"/></td>
+				<td align="right">1</td>
+			</tr>
+		</tbody>
+	</table>
+	<button name="action" value="save">Save</button>
+	</form>
+</div>
+</fieldset>
+
+
+</div>
+
+
+
+
+<!-- #include file="navigation.inc" -->
+<!-- #include file="footer.inc" -->

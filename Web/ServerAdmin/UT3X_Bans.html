@@ -1,0 +1,232 @@
+<!-- #include file="UT3XHeader.inc" -->
+
+<div id="tabs" style="font-size:small; width: 1800px;">
+	<ul>
+		<li><a href="#tabs-playersban">Player Bans</a></li>
+		<li><a href="#tabs-addban">Server rule player break</a></li>
+		<li><a href="#tabs-settings">Settings</a></li>
+	</ul>
+	<div id='tabs-playersban'>
+		<form id="EditSettings" method="post" action="<%page.fulluri%>">
+		<div>
+			<table id="players" class="grid">
+			<thead>
+			<tr>
+				<td>&nbsp;</td>
+				<td colspan="4">&nbsp;</td>
+				<td colspan="5" class="center">Banned Fields</td>
+				<td colspan="3" class="center">Info when banned</td>
+			</tr>
+			<tr>
+				<th>&nbsp;</th>
+				<th nowrap>Banned by</th>
+				<th>Ban Type</th>
+				<th>Remaining Time</th>
+				<th>Reason</th>
+				
+				<th>Player</th>
+				<th nowrap>Unique ID</th>
+				<th nowrap>CD-Key Hash</th>
+				<th nowrap>Computer(s)</th>
+				<th>IP</th>
+				
+				<th nowrap>CD-Key Hash</th>
+				<th nowrap>Comp. Name</th>
+				<th>IP</th>
+			</tr>
+			</thead>
+			<tbody>
+				<%ut3x.bans.list%>
+			</tbody>
+			</table>
+		</div>
+		</form>
+	</div>
+	<div id="tabs-settings">
+		<form method="post" action="<%page.fulluri%>">
+			<table class="grid">
+				<!--
+				<tr>
+					<td>Max ban duration (days)</td>
+					<td><input type="text" class="right" name="maxDaysBanDuration" value="<%ut3x.maxDaysBanDuration%>" size="2"/></td>
+				</tr>
+				-->
+				<tr>
+					<td>Kick/Ban extra message</td>
+					<td><textarea name="kickbanextramsg" cols="40" value="<%ut3x.kickbanextramsg%>"><%ut3x.kickbanextramsg%></textarea></td>
+				</tr>
+				<tr>
+					<td title="If checked then admin name won't be displayed when player is kicked or banned.">Anonymous Admin Kick?</td>
+					<td title="If checked then admin name won't be displayed when player is kicked or banned."><input type="checkbox" class="right" name="bAnonymousAdmin" <%ut3x.bAnonymousAdmin%> /></td>
+				</tr>
+				<tr>
+					<td title="Kicked name displayed to kicked player if Anonymous Admin Name set to true">Anonymous Admin name</td>
+					<td title="Kicked name displayed to kicked player if Anonymous Admin Name set to true"><input type="text" class="right" name="anonymousAdminName" value="<%ut3x.anonymousAdminName%>" /></td>
+				</tr>
+				<tr>
+					<td>Auto-kick fake players?</td>
+					<td><input type="checkbox" class="right" name="kickFakePlayers" <%ut3x.kickFakePlayers%> /></td></td>
+
+					<td>Fake player min kick time (s)</td>
+					<td>
+						<select name="minSecondsFakePlayerBeforeKick" id="minSecondsFakePlayerBeforeKick" title="Will auto-kick fake player after some amount of time">
+							<option value="15">15s"</option>
+							<option value="30">30s</option>
+							<option value="45">45s</option>
+							<option value="60" selected>60s (default)</option>
+							<option value="90">90s</option>
+							<option value="120">120s</option>
+							<option value="180">180s</option>
+						</select>
+					</td>
+				</td>
+			</table>
+			<br>Only head administrators can change these settings.<br>
+			<input type="hidden" name="tabSelected" value="1"/>
+			<button style="background-color:red" title="Only head administrators can change these settings" type="submit" name="action" value="saveBanSettings" onclick="return true;">Save</button>
+		</form>
+	</div>
+	<div id="tabs-addban">
+		<form method="post" action="<%page.fulluri%>">
+		
+			Select break rule (reason) then action will be applied automatically depending on actions (kick, ban, ...) set by headadmins.
+			<table>
+				<tr>
+					<td>Reason:</td>
+					<td>
+						<select name="newbanreason" id="newbanreason" >
+							<%ut3x.banreasons%>
+						</select>
+					</td>
+				</tr>
+				<tr>
+			<!--<td>Method:</td>
+			<td>
+				<select name="newbantype" onchange="setAvailableBanOptions(this.value)">
+					<option value="BT_UT3XBAN" selected>UT3X Ban</option>
+					<option value="BT_UT3XBANMUTE">UT3X Ban Mute</option>
+					<option value="BT_HASH">UT3 CD-Key Hash Ban</option>
+					<option value="BT_UID">UT3 Unique Id Ban</option>
+				</select>
+			</td>-->
+			</tr>
+			<tr>
+				<td>PlayerName:</td><td><input type="text" id="newbanplayername" name="newbanplayername"></td>
+			</tr>
+			<tr>
+				<td>UniqueId (optional):</td><td><input type="text" id="newbanuniqueid" name="newbanuniqueid"></td>
+			</tr>
+			<tr>
+				<td>CD-Key Hash (optional):</td><td><input type="text" id="newbancdkeyhash" name="newbancdkeyhash"></td>
+			</tr>
+			<tr>
+				<td>IP (optional):</td><td><input type="text" id="newbanip" name="newbanip"></td>
+			</tr>
+			<tr>
+				<td>Computer(s) name (optional):</td>
+				<td><input type="text" id="newbancompname" name="newbancompname"></td>
+				<td><input type="text" id="newbancompname2" name="newbancompname2"></td>
+				<td><input type="text" id="newbancompname3" name="newbancompname3"></td>
+			</tr>
+			<!--
+			<tr>
+				<td>Duration (days):</td>
+				<td>
+					<select name="newbanduration" id="newbanduration" >
+						<option value="1" selected>1 Day</option>
+						<option value="2">2 Days</option>
+						<option value="3">3 Days</option>
+						<option value="4">4 Days</option>
+						<option value="5">5 Days</option>
+						<option value="6">6 Days</option>
+						<option value="7">7 Days</option>
+						<option value="10">10 Days</option>
+						<option value="15">15 Days</option>
+						<option value="20">20 Days</option>
+						<option value="30">30 Days</option>
+						<option value="40">40 Days</option>
+						<option value="50">50 Days</option>
+						<option value="60">60 Days</option>
+						<option value="70">70 Days</option>
+						<option value="80">80 Days</option>
+						<option value="90">90 Days</option>
+					</select>
+				</td
+				-->
+			</tr>
+			</table>
+			<button style="background-color:red" title="Only head administrators can change these settings" type="submit" name="action" value="addban" onclick="return true">ADD</button>
+		</form>
+	</div>
+</div>
+
+<script>
+	$(function() {
+		$( "#tabs" ).tabs({ selected: <%ut3x.tabSelected%> });
+	});
+	
+	defaultOnLoad3();
+
+	function defaultOnLoad3(){
+		setSelectedValue('minSecondsFakePlayerBeforeKick', '<%ut3x.minSecondsFakePlayerBeforeKick%>');
+	}
+		
+	
+	function setAvailableBanOptions(banType){
+		resetBanOptions();
+		if(banType == "BT_UT3XBAN"  || banType == "BT_UT3XBANMUTE"){
+
+		} else {
+			document.getElementById('newbanduration').disabled = true;
+			document.getElementById('newbancompname').disabled = true;
+			document.getElementById('newbancompname2').disabled = true;
+			document.getElementById('newbancompname3').disabled = true;
+			document.getElementById('newbanreason').disabled = true;
+			
+			if(banType =="BT_HASH"){
+				document.getElementById('newbanuniqueid').disabled = true;
+				document.getElementById('newbanip').disabled = true;
+			} else if(banType == "BT_UID"){
+				document.getElementById('newbancdkeyhash').disabled = true;
+				document.getElementById('newbanip').disabled = true;
+			} else if(banType == "BT_IP"){
+				document.getElementById('newbancdkeyhash').disabled = true;
+				document.getElementById('newbanplayername').disabled = true;
+				document.getElementById('newbanuniqueid').disabled = true;
+			}
+		}
+	}
+	
+	function resetBanOptions(){
+		document.getElementById('newbanplayername').value = "";
+		document.getElementById('newbanplayername').disabled = false;
+		
+		document.getElementById('newbanuniqueid').disabled = false;
+		document.getElementById('newbanuniqueid').value = "";
+		
+		document.getElementById('newbancdkeyhash').disabled = false;
+		document.getElementById('newbancdkeyhash').value = "";
+		
+		document.getElementById('newbanip').disabled = false;
+		document.getElementById('newbanip').value = "";
+		
+		document.getElementById('newbancompname').disabled = false;
+		document.getElementById('newbancompname').value = "";
+		
+		document.getElementById('newbancompname2').disabled = false;
+		document.getElementById('newbancompname2').value = "";
+		
+		document.getElementById('newbancompname3').disabled = false;
+		document.getElementById('newbancompname3').value = "";
+		
+		document.getElementById('newbanreason').disabled = false;
+		//document.getElementById('newbanreason').value = "";
+		
+		document.getElementById('newbanduration').disabled = false;
+		//document.getElementById('newbanduration').value = "";
+	}
+</script>
+
+
+<!-- #include file="navigation.inc" -->
+<!-- #include file="footer.inc" -->

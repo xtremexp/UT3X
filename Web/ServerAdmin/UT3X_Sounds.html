@@ -1,0 +1,45 @@
+<!-- #include file="UT3XHeader.inc" -->
+
+<div id="content">
+
+<fieldset id="UT3XSettings">
+<legend>UT3X Sounds</legend>
+
+<div>
+	Plays a sound when somebody types in chat a matching soundtext.
+	Ex: Sound Text: "gong"
+	Ex: Sound Cue Class: "A_Ambient_NonLoops.Gong.gong01Cue"
+	<table class="grid">
+	<thead>
+	<tr>
+		<th>Sound Text</th>
+		<th>Sound Cue Class</th>
+		<th>Admin only? (1=true,0=false)</th>
+		<th>&nbsp;</th>
+	</tr>
+	</thead>
+	<tbody>
+		<%ut3x.sounds.list%>
+		<tr>
+			<form  method="post" action="<%page.fulluri%>">
+			<td><input type="text" name="soundmsg"/></td>
+			<td><input type="text" name="soundclassname" size="70"/><input type="hidden" name="bonlyadminusage" value="1"/></td>
+			<td>&nbsp;</td>
+			<td>
+				<input type="submit" name="action" value="ADD"/>
+			</td>
+			</form>
+		</tr>
+	</tbody>
+	</table>
+</div>
+</fieldset>
+
+
+</div>
+
+
+
+
+<!-- #include file="navigation.inc" -->
+<!-- #include file="footer.inc" -->

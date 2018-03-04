@@ -1,0 +1,40 @@
+<!-- #include file="UT3XHeader.inc" -->
+
+<div id="content" style="font-size:small;">
+
+<table id="players" class="grid">
+<thead>
+<tr>
+    <th>&#160;</th>
+	<th>ClanTag</th>
+    <th>Player name</th>
+    <th>Ping</th>
+	<th>PL</th>
+    <th>IP</th>
+	<th>Computer Name</th>
+	<th>Country</th>
+    <th title="A unique ID for this game account.">Unique ID</th>
+    <th title="A unique ID for the copy of the game the player is using.">Client Hash</th>
+	<th>AFK?</th>
+    <th>Admin</th>
+    <th title="Spectator">Spec.</th>
+    <th>Action</th>
+</tr>
+</thead>
+<tbody>
+<%ut3x.currentplayers.list%>
+</tbody>
+</table>
+
+
+</div>
+
+<script>
+	$(document).ready(function() 
+		{ 
+			$("#players").tablesorter(); 
+		} 
+	); 
+</script>
+<!-- #include file="navigation.inc" -->
+<!-- #include file="footer.inc" -->

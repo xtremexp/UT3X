@@ -1,0 +1,11 @@
+<tr>
+	 <td><%tcplinks.RemoteAddr%></td>
+  <td><%tcplinks.LinkState%></td>
+  <td><%tcplinks.LinkMode%></td>
+  <td><%tcplinks.InLineMode%></td>
+  <td><%tcplinks.OutLineMode%></td>
+  <td><%tcplinks.ReceiveMode%></td>
+  <td><%tcplinks.AcceptClass%></td>
+  <td><%tcplinks.SendFIFO%></td>
+  <td><%tcplinks.RecvBuf%></td>
+</tr>

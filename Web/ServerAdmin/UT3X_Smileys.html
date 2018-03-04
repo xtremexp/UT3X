@@ -1,0 +1,45 @@
+<!-- #include file="UT3XHeader.inc" -->
+
+<div id="content">
+
+<fieldset id="UT3XSettings">
+<legend>UT3X Smileys</legend>
+
+<div>
+	Render a smiley (Texture) when somebody types in chat a matching smiley text
+	Ex: Smiley Text: "(evil)"
+	Ex: Smiley Texture: "UT3XContentV2.Smileys.smiley-twist" (from UT3 package UT3XContentV2.upk)
+	<table class="grid">
+	<thead>
+	<tr>
+		<th>Smiley Text</th>
+		<th>Smiley Texture</th>
+		<th>Admin only? (1=true,0=false)</th>
+		<th>&nbsp;</th>
+	</tr>
+	</thead>
+	<tbody>
+		<%ut3x.smileys.list%>
+		<tr>
+			<form  method="post" action="<%page.fulluri%>">
+			<td><input type="text" name="smileyText"/></td>
+			<td><input type="text" name="smileyTexture" size="70"/><input type="hidden" name="bonlyadminusage" value="1"/></td>
+			<td>&nbsp;</td>
+			<td>
+				<input type="submit" name="action" value="ADD"/>
+			</td>
+			</form>
+		</tr>
+	</tbody>
+	</table>
+</div>
+</fieldset>
+
+
+</div>
+
+
+
+
+<!-- #include file="navigation.inc" -->
+<!-- #include file="footer.inc" -->

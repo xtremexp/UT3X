@@ -1,0 +1,333 @@
+<!-- #include file="UT3XHeader.inc" -->
+
+<div>
+
+<fieldset id="UT3XSettings">
+<legend>UT3X Settings</legend>
+
+<div class="demo">
+
+<div id="tabs">
+	<ul>
+		<li><a href="#tabs-info">Info</a></li>
+		<li><a href="#tabs-modules">Global Settings</a></li>
+		<li><a href="#tabs-admins">Administrators</a></li>
+		<li><a href="#tabs-commands">Commands</a></li>
+		<li><a href="#tabs-history">History</a></li>
+	</ul>
+	<div id='tabs-info'>
+		<b><%ut3x.am.headadmin%></b><br>
+		UT3X Mutator by Solarsys
+		<table>
+			<thead>
+				<th>&nbsp;</th>
+				<th>Version</th>
+				<th>Date</th>
+			</thead>
+			<tbody>
+				<tr>
+					<td>UT3X Mutator</td>
+					<td><%ut3x.version%></td>
+					<td><%ut3x.date%></td>
+				</tr>
+				<tr>
+					<td>UT3X WebAdmin</td>
+					<td><%ut3x.waversion%></td>
+					<td><%ut3x.wadate%></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div id='tabs-modules'>
+		<form id="EditSettings" method="post" action="<%page.fulluri%>">
+		Server TimeZone:
+		<select name="timezone" id="timezone">
+			<option value="IDLW">(GMT -12:00 hour) International Date Line West</option>
+			<option value="NT">(GMT -11:00 hour) Nome</option>
+			<option value="AHST">(GMT -10:00 hour) Alaska-Hawaii Standard</option>
+			<option value="YST">(GMT -9:00 hour) Yukon Standard</option>
+			<option value="PST">(GMT -8:00 hour) Pacific Standard</option>
+			<option value="MST">(GMT -7:00 hour) Mountain Standard</option>
+			<option value="CST">(GMT -6:00 hour) (GMT -6:00 hour)Central Standard</option>
+			<option value="HST">(GMT -6:00 hour) Hawaii Standard</option>
+			<option value="CAT">(GMT -6:00 hour) Central Alaska</option>
+			<option value="EST">(GMT -5:00 hour) Eastern Standard</option>
+			<option value="AST">(GMT -4:00 hour) Atlantic Standard</option>
+			<option value="BST">(GMT -3:00 hour) Brazil Standard</option> 
+			<option value="GST">(GMT -3:00 hour) Greenland Standard</option>
+			<option value="NFT">(GMT -3:00 hour) Newfoundland</option>
+			<option value="NST">(GMT -3:00 hour) ewfoundland Standard</option>
+			<option value="WAT">(GMT -1:00 hour) West Africa</option> 
+			<option value="AT">(GMT -1:00 hour) Azores</option> 
+			<option value="GMT">(GMT +0:00 hour) Greenwich Mean</option>
+			<option value="UT">(GMT +0:00 hour) Universal (Coordinated)</option>
+			<option value="UTC">(GMT +0:00 hour) UTC</option>
+			<option value="WET">(GMT +0:00 hour) Western European</option>
+			<option value="CET">(GMT +1:00 hour) Central European</option>
+			<option value="MET">(GMT +1:00 hour) Middle European</option>
+			<option value="MEWT">(GMT +1:00 hour) Middle European Winter</option>
+			<option value="SWT">(GMT +1:00 hour) Swedish Winter</option>
+			<option value="FWT">(GMT +1:00 hour) French Winter</option>
+			<option value="CEST">(GMT +2:00 hour) Central European Summer</option>
+			<option value="EET">(GMT +2:00 hour) Eastern Europe, USSR Zone 1</option>
+			<option value="BT">(GMT +3:00 hour)  Baghdad, USSR Zone 2</option>
+			<option value="IT">(GMT +3:30 hour) Iran</option>
+			<option value="ZP4">(GMT +5:00 hour) USSR Zone 3</option>
+			<option value="ZP5">(GMT +5:00 hour) USSR Zone 4</option>
+			<option value="IST">(GMT +5:30 hour) Indian Standard</option>
+			<option value="ZP6">(GMT +6:00 hour) USSR Zone 5</option>
+			<option value="NST">(GMT +6:30 hour) North Sumatra</option>
+			<option value="SST">(GMT +6:00 hour) South Sumatra, USSR Zone 6</option>
+			<option value="WAST">(GMT +6:00 hour) West Australian Standard</option>
+			<option value="JT">(GMT +7:30 hour)  ava (3pm in Cronusland!)</option>
+			<option value="CCT">(GMT +8:00 hour) China Coast, USSR Zone 7</option>
+			<option value="JST">(GMT +9:00 hour) Japan Standard, USSR Zone 8</option>
+			<option value="CAST">(GMT +9:30 hour) Central Australian Standard</option>
+			<option value="EAST">(GMT -6:00 hour) Eastern Australian Standard</option>
+			<option value="GST">(GMT +10:00 hour) Guam Standard, USSR Zone 9</option>
+			<option value="NZT">(GMT +12:00 hour) New Zealand</option>
+			<option value="NZST">(GMT +12:00 hour)New Zealand Standard</option>
+			<option value="IDLE">(GMT +12:00 hour) International Date Line East</option>
+		</select>
+		<br><br>
+		<table>
+			<thead>
+				<th>Name</th>
+				<th>Active?</th>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Adverts</td>
+					<td>
+						<select name="adverts" id="xadverts">
+							<option value="True">YES</option>
+							<option value="False">NO</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>AFK Checker</td>
+					<td>
+						<select name="afkchecker" id="afkchecker">
+							<option value="True">YES</option>
+							<option value="False">NO</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Balancer</td>
+					<td>
+						<select name="balancer" id="balancer">
+							<option value="True">YES</option>
+							<option value="False">NO</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Default Map</td>
+					<td>
+						<select name="defaultmap" id="defaultmap">
+							<option value="True" selected>YES</option>
+							<option value="False" selected>NO</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Demo Rec</td>
+					<td>
+						<select name="demorec" id="demorec">
+							<option value="True">YES</option>
+							<option value="False">NO</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Lag detector</td>
+					<td>
+						<select name="lagdetector" id="lagdetector">
+							<option value="True">YES</option>
+							<option value="False">NO</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Language Checker</td>
+					<td>
+						<select name="langchecker" id="langchecker">
+							<option value="True">YES</option>
+							<option value="False">NO</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Map Info</td>
+					<td>
+						<select name="mapinfo" id="mapinfo">
+							<option value="True">YES</option>
+							<option value="False">NO</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Zounds</td>
+					<td>
+						<select name="zounds" id="zounds">
+							<option value="True">YES</option>
+							<option value="False">NO</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Smileys</td>
+					<td>
+						<select name="bSmileysActive" id="bSmileysActive">
+							<option value="True">YES</option>
+							<option value="False">NO</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>UT3X HUD</td>
+					<td>
+						<select name="bUseUT3XHud" id="bUseUT3XHud">
+							<option value="True">YES</option>
+							<option value="False">NO</option>
+						</select>
+					</td>
+				</tr>
+			</tbody>
+		</table> 
+		<button style="background-color:red" title="Only head administrators can change these settings" type="submit" name="action" value="saveModulesActive" onclick="return confirm('Are-you sure you want to apply these settings?');">Save</button>
+		</form>
+	<br>Only head administrators can change these settings.<br>
+	</div>
+	<div id='tabs-admins'>
+		List of admins (only head-admins can see this list):<br>
+		<%ut3x.adminlist%>
+	</div>
+	<div id='tabs-commands' style="font-size:small;">
+		<b>Under construction!</b><br>
+		List of UT3X commands:<br>
+		Parameters in brackets ([,]) are optional<br><br>
+		<table class="grid">
+			<thead>
+				<tr>
+					<td>Command</td>
+					<td>Parameter 1</td>
+					<td>Parameter 2</td>
+					<td>Parameter 3</td>
+					<td>E.G.</td>
+					<td>Description</td>
+					<td>Restrictions</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>UTPKICK</td><td>PlayerName</td><td>[Reason]</td><td>&nbsp;</td><td>"utpkick RaptorKC flaming"</td><td>Kicks player</td><td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td>UTPKICKBAN</td><td>PlayerName</td><td>Duration</td><td>[Reason]</td><td>"utpkick RaptorKC 2d flaming"</td><td>Bans RaptorKC for 2days (2d)</td><td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td>WAMSG</td><td>Message</td><td>&nbsp;</td><td>&nbsp;</td><td>"wamsg hello webadmin!"</td><td>Sends a message to webadmins only</td><td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td>GETIPINFO</td><td>Ip Adress</td><td>&nbsp;</td><td>&nbsp;</td><td>"getipinfo 4.5000.6.7"</td><td>Get country of ip</td><td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td>UTPMUTE</td><td>PlayerName</td><td>[reason]</td><td>&nbsp;</td><td>"utpmute RaptorKC swearing"</td><td>Mutes RaptorKC</td><td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td>UTPBANMUTE</td><td>PlayerName</td><td>duration</td><td>[reason]</td><td>"utpbanmute RaptorKC 2d swearing"</td><td>Ban Mutes RaptorKC for 2 days</td><td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td>UTPUNMUTE</td><td>PlayerName</td><td>&nbsp;</td><td>&nbsp;</td><td>"utpunmute RaptorKC"</td><td>Removes RaptorKC banmute/mute</td><td>&nbsp;</td>
+				</tr>
+				<!--
+				<tr>
+					<td>SETGRAVITY</td><td>Gravity</td><td>&nbsp;</td><td>&nbsp;</td><td>"setgravity -520"</td><td>Set default (-520) gravity</td><td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td>SETHEADSIZE</td><td>HeadSize</td><td>&nbsp;</td><td>&nbsp;</td><td>"setheadsize 2"</td><td>Sets headsize twice(2) as default size</td><td>&nbsp;</td>
+				</tr>
+				-->
+				<!--
+				<tr>
+					<td>SETSTALLZ</td><td>stallz</td><td>&nbsp;</td><td>&nbsp;</td><td>"setstallz 1000"</td><td>Removes flying vehicle ceiling (e.g: suspense)</td><td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td>CC</td><td>?</td><td>&nbsp;</td><td>&nbsp;</td><td>"cc ?"</td><td>Execute a console command</td><td>&nbsp;</td>
+				</tr>
+				-->
+				<tr>
+					<td>WHOISADMIN</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>"whoisadmin"</td><td>Displays logged admins</td><td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td>GETMYBANS</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>"getmybans"</td><td>Displays your bans</td><td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td>LAGSTATUS</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>"lagstatus"</td><td>Display ping and packetloss of all players</td><td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td>SWITCHPLAYER</td><td>PlayerName</td><td>PlayerName2 (optional)</td><td>&nbsp;</td><td>"switchplayer solarsys cassandra"</td><td>Change team for players solarsys and cassandra</td><td>&nbsp;</td>
+				</tr>
+				<!--
+					<td>WALK</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>"walk"</td><td>Walks</td><td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td>KILLALL</td><td>ActorClass</td><td>&nbsp;</td><td>&nbsp;</td><td>"killall utgamecontent.utvehicle_raptor_content"</td><td>Kill any actor in map (raptor in example)</td><td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td>ADDTIME</td><td>Seconds</td><td>&nbsp;</td><td>&nbsp;</td><td>"addtime 180"</td><td>Adds 180s to remaining round time</td><td>&nbsp;</td>
+				</tr>
+				-->
+			</tbody>
+		</table>
+	</div>
+	<div id='tabs-history'>
+		<b>Under construction</b><br>
+		<br>
+		V1.7.6 (XX/XX/2014):<br>
+		- Removed player rank in scoreboard since no longer updated (=useless)<br>
+		<br>
+		V1.7.5 (11/12/2014):<br>
+		- Added auto-kicks player with bad playername or clantag (using same system as anti-swearing system)<br>
+	</div>
+</div>
+
+</fieldset>
+
+</div><!-- End demo -->
+<div style="display: none;" class="demo-description">
+<p>Click tabs to swap between content that is broken into logical sections.</p>
+</div><!-- End demo-description -->
+
+</div>
+
+
+<script>
+	$(function() {
+		$( "#tabs" ).tabs();
+	});
+	
+	defaultOnLoad2();
+
+	function defaultOnLoad2(){
+		setSelectedValue('balancer', '<%ut3x.am.balancer%>');
+		setSelectedValue('demorec', '<%ut3x.am.demorec%>');
+		setSelectedValue('mapinfo', '<%ut3x.am.mapinfo%>');
+		setSelectedValue('lagdetector', '<%ut3x.am.lagdetector%>');
+		setSelectedValue('xadverts', '<%ut3x.am.adverts%>');
+		setSelectedValue('zounds', '<%ut3x.am.zounds%>');
+		setSelectedValue('afkchecker', '<%ut3x.am.afkchecker%>');
+		setSelectedValue('defaultmap', '<%ut3x.am.defaultmap%>');
+		setSelectedValue('langchecker', '<%ut3x.am.langchecker%>');
+		setSelectedValue('timezone', '<%ut3x.am.timezone%>');
+		setSelectedValue('bUseUT3XHud', '<%ut3x.am.bUseUT3XHud%>');
+		setSelectedValue('bSmileysActive', '<%bSmileysActive%>');
+	}
+</script>
+
+
+<!-- #include file="navigation.inc" -->
+<!-- #include file="footer.inc" -->
