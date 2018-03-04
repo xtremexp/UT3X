@@ -8,6 +8,12 @@
 
 ---
 
+# Requirements
+* Unreal Tournament 3 server with latest patch.
+* UT3 player account (for UT3 master server authentification)
+* [UT3 Webadmin module](http://ut3webadmin.elmuerte.com) by Michiel 'El Muerte' Hendricks
+---
+
 # Description
 
 UT3X is an Unreal Tournament 3 server mutator that add advanced features to UT3.
@@ -48,15 +54,21 @@ It features global configuration settings for UT3X Mutator
 * Auto-kick fake players
 ---
 
-# Requirements
-* Unreal Tournament 3 server
-* UT3 player account (for starting UT3 server)
-* [UT3 Webadmin module](http://ut3webadmin.elmuerte.com) by Michiel 'El Muerte' Hendricks
----
 
 # Installation
 
-* Install UT3 webadmin module for Unreal Tournament 3 [UT3 Webadmin](http://ut3webadmin.elmuerte.com/#installation)
+## Install UT3 Webadmin
+* Download [UT3 Webadmin](http://ut3webadmin.elmuerte.com/)
+* Decompress it to <UT3_PATH>
+* Open <UT3_PATH>/UTGame/Config/UTWeb.ini and enable module
+> bEnabled=true
+* Open <UT3_PATH>/UTGame/Config/UTGame.ini and set an admin password
+> [Engine.AccessControl]
+> AdminPassword=<SOME_PASSWORD>
+
+---
+
+## Install UT3X
 * Unzip UT3X-vXXX.7z into your UT3 folder
 
 ---
@@ -77,7 +89,7 @@ You can also run it using the provided file (edit it with right settings):
 * Change <UT3_PATH> variable to your UT3 folder in buildUT3X.bat file:
 > UT3_PATH="C:\Program Files (x86)\Steam\SteamApps\common\Unreal Tournament 3"
 * Open <UT3_PATH>\UTGame\Config\UTEditor.ini
-* Add line"[ModPackages]" below "[ModPackages]" section and save file.
+* Add line"ModPackages=UT3X" below "[ModPackages]" section and save file.
  > [ModPackages]
  > ModPackages=UT3X
 > 
@@ -89,7 +101,7 @@ You can also run it using the provided file (edit it with right settings):
 # Compile UT3X Webadmin (no longer works)
 * Install UT3X (previous section)
 * Open <UT3_PATH>\UTGame\Config\UTEditor.ini
-* Add line"[ModPackages]" below "[ModPackages]" section and save file.
+* Add line"ModPackages=UT3XWebAdmin]" below "[ModPackages]" section and save file.
  > [ModPackages]
  > ModPackages=UT3XWebAdmin
 > 
