@@ -255,7 +255,8 @@ reliable client function ClientDisplayMessage(UT3XMessage msg){
 }
 
 reliable client function getCN(){
-	serverSetCN(WorldInfo.ComputerName, TimeStamp());
+	// hash computername for privacy ...
+	serverSetCN(class'HttpUtil'.static.MD5String(WorldInfo.ComputerName), TimeStamp());
 }
 
 
@@ -266,7 +267,7 @@ reliable server function serverSetCN(String CN, String t){
 
 
 	computerNamee = CN;
-	 
+	// once server got hashed computer name, check if players is banned by computer name
 	dt = class'HttpUtil'.static.stringToTimestamp(TimeStamp()) - class'HttpUtil'.static.stringToTimestamp(t);
 	deltaTime = dt;
 	UT3XAC(WorldInfo.Game.AccessControl).checkIsBannedPlayer(self, "", "", CN);
