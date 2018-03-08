@@ -81,6 +81,15 @@ Example:
 
 You can also run it using the provided file (edit it with right settings):
 > startUT3XServer.bat
+---
+# UT3X fast download from client
+* Install an http server 
+* Save UT3X.u.uz3 and UT3XContent.upk.uz3 file on www folder.
+* Open <UT3_PATH>/UTGame/Config/UTEngine.ini
+* Add this section if it does not exists:
+> [IpDrv.HTTPDownload]
+> RedirectToURL=http://<HTTP_SERVER>/<UZ3_FOLDER>
+* E.g: RedirectToURL=http://myhttpserver.com/uz3
 
 --- 
 
