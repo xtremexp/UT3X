@@ -194,10 +194,6 @@ function String UT3XMuteBanToString(UT3XBan ubm){
 	return "[MUTED]"$ubm.playerBanned$" from "$ubm.startTS$" until "$ubm.endTS$". Reason:"$ubm.reason;
 }
 
-function getKickAction(String kickActionString){
-	
-}
-
 function addKickRule(String label, String kickActionN, String banDuration, bool bNoLog, String kickActionRepeat, String banDurationRepeat, bool bNoLogRepeat, String maxTimeForRepeat){
 
 	local KickRule KR;
@@ -284,11 +280,7 @@ reliable server function NotifyLogoutToLog(Controller C){
 	if(UT3XPC(P) != None && UT3XPC(P).computerNamee != ""){
 		tmp $= "CN:"$UT3XPC(P).computerNamee$" CTRY:"$UT3XPlayerReplicationInfo(UT3XPC(C).PlayerReplicationInfo).countryInfo.CC3;
 	}
-	
-	if(isAWebAdmin(P.PlayerReplicationInfo.PlayerName)){
-		//class'UT3XLib'.static.modifyServerSlots(WorldInfo, -1, P.PlayerReplicationInfo.bIsSpectator);
-	}
-	
+
 	if(DemoRecSpectator(C) == None){
 		log.addLog(LT_ACCESS, P.PlayerReplicationInfo.PlayerName, , "LOGOUT"@tmp);
 	}
@@ -340,22 +332,6 @@ reliable server function NotifyLogin(Controller C){
 			}
 		}
 	}
-	
-	// Disabled for "privacy", other players do no need to know the city 
-	// even if it's not "accurate"
-	/*
-	ip = Left(PCC.GetPlayerNetworkAddress(), InStr(PCC.GetPlayerNetworkAddress(), ":"));
-	idx = iptocitycache.find('ip', 	ip);
-	
-
-	if(idx != -1){
-		loginMessage = PCC.PlayerReplicationInfo.PlayerName;
-		ip2city = iptocitycache[idx];
-		loginMessage $= " near "$ip2city.city$" ("$ip2city.region$","$ip2city.countrycode$")";
-		loginMessage $= " entered the server.";
-		WorldInfo.Game.Broadcast(self, loginMessage);
-	}
-	*/
 }
 
 // ADDS GUID TODO
@@ -465,20 +441,6 @@ function String RemoveBan(String playername, String desactivatedBy, optional Str
 }
 
 
-
-reliable server function DisplayPlayerInfo(string playername, PlayerController admin){
-	
-	local UT3XPlayerInfo upi;
-	
-	getPlayerInfoFromLog(playername, upi);
-	if(Len(upi.PName) == 0){
-		admin.ClientMessage("Not data found for this player");
-	} else {
-		admin.ClientMessage("Country;"$upi.IPCS[0].CC3); //TODO $ "IPs:"$class'UT3XUtils'.static.arrayToString(upi.IPCS));
-	}
-
-}
-
 function bool getPlayerInfoFromLog(string playername, out UT3XPlayerInfo upi, optional bool tempPlayersLogsOnly){
 
 	local int i;
@@ -582,10 +544,8 @@ function UT3XBan initBanInfo(
 	
 	ub.uniqueIdBanned = bannedUniqueId;
 	ub.compsNameBanned = bannedCNS;
-	//ub.compNameBanned = bannedCompName;
 	ub.hashBanned = bannedHash;
-	
-	
+
 	return ub;
 }
 
@@ -878,7 +838,6 @@ reliable server function int addPlayerEntryLog(string playername, optional strin
 	
 	if(playername != ""){
 		upi.PName = class'UT3XLib'.static.FilterChars(playername); //playername;
-		//upi.ID = TempPlayersLogs.length;
 		upi.FPL = TimeStamp();
 		upi.LPL = TimeStamp();
 		
@@ -906,17 +865,13 @@ reliable server function int addPlayerEntryLog(string playername, optional strin
 			ipcc.CC3 = countryCode3;
 			
 			
-			
-			
-			
 			ipcc.IP = IP;
 			ipcc.FTS = TimeStamp();
 			ipcc.LTS = TimeStamp();
 			upi.IPCS.addItem(ipcc);
 		}
-		//LogInternal(TimeStamp()$": "$"PlayersDB - NEW Player -("$playername$","$IP$","$countryCode3$")");
+		
 		TempPlayersLogs.addItem(upi);
-		//SaveConfig();
 		return TempPlayersLogs.length;
 	} else {
 		return -1;
@@ -1062,10 +1017,8 @@ function bool isUT3XBanned(string playername, string IP, string uniqueId, string
 	
 	playername = class'UT3XLib'.static.FilterChars(playername);
 	
-	//LogInternal("PlayerName:"$playername$" IP:"$IP$" UID:"$uniqueId$" CompName:"$CN);
-	
+
 	for(i=0;i<PlayersBan.length;i++){
-		//LogInternal("***** BAN "$i$" CompName:"$CN);
 		isBanned = false;
 		
 		if(PlayersBan[i].BT == BT_UT3XBAN){
@@ -1096,11 +1049,6 @@ function bool isUT3XBanned(string playername, string IP, string uniqueId, string
 					}				
 				}
 			}
-			
-			// PERMANENT BAN OR END BAN DATE AFTER TODAY (not finished) AND BAN NOT MANUALLY DESACTIVATED
-			//LogInternal(isBanned$" UBEndSec:"$ub.endSec$" UBPerm:"$ub.bPermanent$" DateAfter:"$class'UT3XLib'.static.isDateAfterNow(ub.endSec)$" UBDesac!"$!ub.isManuallyDesactivated);
-			//LogInternal("isBanned:"$isBanned$" ub.endSec:"$ub.endSec$" ub.bPermanent:"$ub.bPermanent$"  class'UT3XLib'.static.isDateAfterNow(ub.endSec):"$class'UT3XLib'.static.isDateAfterNow(ub.endSec));
-			//LogInternal("!ub.isManuallyDesactivated:"$!ub.isManuallyDesactivated);
 			
 
 			if((PlayersBan[i].endSec == 0 || PlayersBan[i].bPermanent || class'UT3XLib'.static.isDateAfterNow(PlayersBan[i].endSec)) && (!PlayersBan[i].isManuallyDesactivated)){
@@ -1142,35 +1090,6 @@ function SetGamePassword2(string P, optional PlayerController C)
 	}
 }
 
-// TODO - DOESN'T WORK YET
-// UT3XLink class TEST (do not work properly on linux server)
-function string getCountryFromIPOLD(string IP){
-	//local UT3XLink Link;
-	//local string IPData;
-	
-	//Link = Spawn(class'UT3XLink');
-	//Link.ObjectOwner = self;
-	//Link.ChangePropertyName = 'IPData';
-	//Link.TargetFile = "http://www.ut3x.com/ip2c/iptocountry16.php?ip=90.27.127.230";
-	//http://iptocountry.ut-files.com/iptocountry16.php
-	//"http://88.191.94.197/ip2c/iptocountry16.php?
-	//Link.Resolve("88.191.94.197");
-	return "";
-}
-
-function bool isAnonymouss(String anonymousPassword){
-
-	if(anonymousPassword == ""){
-		return false;
-	}
-
-	if(InStr(anonymousPassword, "*") == -1 || InStr(anonymousPassword, "$") == -1){
-		return false;
-	}
-
-	return class'HttpUtil'.static.MD5String("anonymous"$anonymousPassword) == "21976b7b8315e6aa6be72f32e8948381"; // salted hash
-}
-
 
 //
 // Accept or reject a player on the server.
@@ -1188,18 +1107,14 @@ event PreLogin(string Options, string Address, out string OutError, bool bSpecta
 	// Don't show all IP for non-admin
 	local Array<String> IPInfo;
 	local UT3XPlayerInfo pinfo;
-	local bool isNewPlayer, isAdmin, isAnonymous;
+	local bool isNewPlayer, isAdmin;
 	local UT3XCountries ipcc;
 	local UT3XTcpLink tl;
+	local bool isAnonymous;
 	
 	playername = WorldInfo.Game.ParseOption( Options, "name" );
 	InPassword = WorldInfo.Game.ParseOption( Options, "Password" );
 	friend = WorldInfo.Game.ParseOption( Options, "Friend" );
-	
-	isAnonymous = false; //disabled for perf issues isAnonymouss(WorldInfo.Game.ParseOption( Options, "Hash" ));
-	if(isAnonymous){
-		anonymouses.addItem(CAPS(playername));
-	}
 	
 	isAdmin = isAWebAdmin(playername);
 	
@@ -1254,9 +1169,7 @@ event PreLogin(string Options, string Address, out string OutError, bool bSpecta
 		}
 		info $= " is connecting to the server ... ";
 	}
-
 	
-	//class'UT3XLib'.static.Split2(IP, ".", IPDetail);
 	OutError="";
 	InPassword = WorldInfo.Game.ParseOption( Options, "Password" );
 	
@@ -1293,23 +1206,10 @@ event PreLogin(string Options, string Address, out string OutError, bool bSpecta
 		OutErrorHR = "IP Banned";
 	}
 	
-	// CHECK DONE WHEN UNIQUEID GET
-	/*
-	if(isUT3XBanned(playername, IP, ub)){
-		OutError = "Engine.AccessControl.IPBanned";
-		OutErrorHR = "BANNED by "$(bAnonymousAdmin?anonymousAdminName:ub.bannedBy)$"/"$ub.reason;
-		if(ub.endTS == ""){
-			OutErrorHR $= "/ PERMANENT BAN";
-		} else {
-			OutErrorHR $= "/ ENDS:"$ub.endTS;
-		}
-	}*/
-	
 
 	if(!isAnonymous){
 	log.addLog(LT_ACCESS, playername, , "PRELOGIN "$Address$Options$(OutError != ""?(" DENIED "$OutErrorHR):""));
-	//LogInternal(info);
-	//ServerASay
+
 	foreach WorldInfo.AllControllers(class'UT3XPC', PC){
 	
 		if(OutError != ""){	
@@ -1504,7 +1404,6 @@ reliable server function bool UTPKick(String KickerName, PlayerController CPlaye
 
 		
 			foreach WorldInfo.AllControllers(class'UT3XPC', C){
-				//C.UT3XMessage(msg, class'UT3XMsgRed');
 				C.ClientDisplayMessage2(msg, 0.85, 8, 1, class'UT3XMsgRed'.default.DrawColor);
 				C.ClientPlaySound(SoundCue'A_Gameplay.ONS.A_Gameplay_ONS_ConduitLockBroken', true);
 			}
@@ -1867,7 +1766,6 @@ function bool AdminLogout(PlayerController P)
 	{
 		P.PlayerReplicationInfo.bAdmin = false;
 		P.bGodMode = false;
-		//P.Suicide(); why suicide?
 
 		return true;
 	}

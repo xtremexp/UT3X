@@ -63,20 +63,9 @@ reliable server function ServerSetClanTag(string InClanTag)
 	}
 }
 
-
-
-
-
-unreliable Client function ClientSetNetSpeed(int netSpeed){
-	SetNetSpeed(netSpeed);
-	self.Player.ConfiguredInternetSpeed = netSpeed;
-}
-
 simulated event PostBeginPlay(){
 
-
 	super.PostBeginPlay();
-	
 
 	afkc = UT3XAC(WorldInfo.Game.AccessControl).mut.afkc;
 
@@ -85,31 +74,11 @@ simulated event PostBeginPlay(){
 	
 	advertRI = Spawn( Class'UT3XAdvertsReplication', self );
 	advertRI.PC = self;
-	
 
-	//class'UT3XLib'.static.modifyServerSlots(WorldInfo, -1, P.PlayerReplicationInfo.bIsSpectator);
 	setTimer(2.0, true, 'CheckAfkAndFakePlayers'); 
 
 }
 
-
-reliable client function getVM(){
-	local String xx;
-	xx = ConsoleCommand("get Engine.SceneCaptureComponent ViewMode");
-	LogInternal("XXX="$xx);
-	serverSetVM(xx);
-}
-
-
-reliable server function serverSetVM(String VM){
-
-	/*if(viewMode == "SceneCapView_Lit" || viewMode == "SceneCapView_Unlit" || viewMode == "SceneCapView_Wire"){
-		ClientMessage("You have cheated!!");
-	}*/
-	
-	LogInternal("VM="$VM);
-	viewMode = vm;
-}
 
 
 // TRYING TO SET COUNTRY WHEN PLAYER ENTER GAME
@@ -182,38 +151,6 @@ reliable server function ServerSummon(string ClassName){
 }
 
 
-
-
-
-// TESTING TCP CLIENT
-// SEEMS TO BE BUGGY WITH UT3 LINUX ...
-// tcpinfo: www.google.fr:80:message (sends the string "message" to www.google.fr at port 80)
-/*
-exec function testTcp(String tcpInfo){
-	ServerTestTcp(tcpInfo);
-}
-
-reliable server function ServerTestTcp(String tcpInfo){
-	local array<String> SplitedMsg;
-	
-	if(!class'UT3XLib'.static.checkIsAdmin(self)){
-		return;
-	}
-	
-	UT3XAC(WorldInfo.Game.AccessControl).log.addLog(LT_OTHER, self.PlayerReplicationInfo.PlayerName, "", "Admin Cmd", "testTCP"@tcpinfo , true);
-	
-	class'UT3XLib'.static.Split2(tcpInfo, ":", SplitedMsg);
-	mytcplink = spawn(class'UT3XLink');
-	mytcplink.PC = self;
-	
-	mytcplink.TargetHost = SplitedMsg[0];
-	mytcplink.TargetPort = Int(SplitedMsg[1]);
-	mytcplink.msg = SplitedMsg[2]; // data to be sent
-	
-	mytcplink.ResolveMe(); // Resolve Host then Once Resolved Open Connection Then Send Data ..
-}*/
-
-
 reliable client function ClientDisplayMessage2(String Msg, float Position, float LifeTime, int FontSize, Color DrawColor){
 	if(myHud == None){
 		return;
@@ -240,8 +177,7 @@ reliable client function ClientDisplayMessage(UT3XMessage msg){
 		return;
 	}
 	
-	
-	
+
 	myHud.LocalizedMessage(
 		class'UTLocalMessage',
 		RealViewTarget,
@@ -328,12 +264,9 @@ unreliable server function CheckAfkAndFakePlayers(){
 	
 	// Check Fake players and kick if needed ...
 	UT3XAC(WorldInfo.Game.AccessControl).CheckFakePlayer(self);
-	
-	//LogInternal("LOGIN TIME AFK:"$PlayerReplicationInfo.PlayerName$" "$loginTime);
-	//LogInternal("CURRENT TIME:"$PlayerReplicationInfo.PlayerName$" "$WorldInfo.TimeSeconds);
-	
+
 	// We do not check afks if not enough players on server ...
-	if(!IsSpectating() && WorldInfo.Game.NumPlayers<=afkc.AFKMinPlayers){
+	if(!IsSpectating() && WorldInfo.Game.NumPlayers <= afkc.AFKMinPlayers){
 		LastActiveTime2 = currentTime;
 		isAFK = false;
 		return;
@@ -1426,7 +1359,8 @@ function Canvas DrawUT3XCreditsAndSpectators(Canvas Canvas){
 	
 	Canvas.SetDrawColor( 255, 255, 255, 255); // White
 	Canvas.SetPos(baseX, baseY);
-	Canvas.DrawText("UT3X"@"by"@class'UT3X'.Static.getAuthors()@class'UT3X'.Static.getVersion(), true);
+	// "by"@class'UT3X'.Static.getAuthors()@
+	Canvas.DrawText("UT3X"@class'UT3X'.Static.getVersion(), true);
 	baseY += 15;
 	Canvas.SetPos(baseX, baseY);
 	Canvas.DrawText("Spectators:", true);
@@ -1587,10 +1521,6 @@ reliable server function ServerAddTime(int seconds){
 		class'UT3XUtils'.static.BroadcastMsg(WorldInfo, PlayerReplicationInfo.PlayerName@" have added "$seconds$"s", class'UT3XMsgOrange');
 		WorldInfo.GRI.RemainingTime += seconds;
 	}
-}
-
-function loadPlayerSettings(){
-
 }
 
 exec function country(optional string cmd){

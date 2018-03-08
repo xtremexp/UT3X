@@ -15,9 +15,9 @@
 class UT3X extends UTMutator config(UT3XConfig);
 
 //SHOUD BE INCREMENTED WITH EVERY CHANGES DEPENDING ON FIX, MINOR/MAJOR CHANGES
-const UT3XVersion="175"; 
-const UT3XDate="12/12/2014";//"14/07/2014";
-const UT3XAuthors="XtremeXp/Winter";
+const UT3XVersion="1.7.6"; 
+const UT3XDate="08/03/2018";
+const UT3XAuthors="XtremeXp";
 var bool isUT3XServer;
 var bool onlyUT3XServersVersion;
 var bool isNotServerStart;
