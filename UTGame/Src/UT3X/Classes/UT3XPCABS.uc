@@ -58,7 +58,7 @@ reliable server function ServerSetClanTag(string InClanTag)
 		InClanTag);
 		
 	// Check player name, if not corrected then kick
-	if(!UT3XAC(WorldInfo.Game.AccessControl).lc.CheckMessage(self, InClanTag, badClanTag, true)){
+	if(UT3XAC(WorldInfo.Game.AccessControl).lc != None && !UT3XAC(WorldInfo.Game.AccessControl).lc.CheckMessage(self, InClanTag, badClanTag, true)){
 		UT3XAC(WorldInfo.Game.AccessControl).UTPKick("UT3X-BOT", self,, "Bad clantag");
 	}
 }
